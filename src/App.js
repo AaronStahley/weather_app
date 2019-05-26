@@ -1,18 +1,20 @@
 import React from "react";
 import "./App.css";
-
 import { Provider } from "react-redux";
 import store from "./store";
+import NavBar from "./components/NavBar";
+import CurrentWeather from "./components/CurrentWeather";
+import ForecastedWeather from "./components/ForecastedWeather";
 
 function App() {
-  //Calling api keys from .env file.
-  console.log(process.env.REACT_APP_OPENWEATHERMAPS_API);
-  console.log(process.env.REACT_APP_GOOGLEPLACES_API);
-
   return (
     <Provider store={store}>
       <div className="App">
-        <header className="App-header" />
+        <header className="App-header">
+          <NavBar />
+          <CurrentWeather />
+          <ForecastedWeather />
+        </header>
       </div>
     </Provider>
   );
