@@ -5,7 +5,7 @@ import { fetchForecastedWeather } from "../actions/weatherActions";
 
 class ForecastedWeather extends Component {
   componentWillMount() {
-    this.props.fetchForecastedWeather(35, 139);
+    this.props.fetchForecastedWeather(33.4483, -112.074);
   }
 
   render() {

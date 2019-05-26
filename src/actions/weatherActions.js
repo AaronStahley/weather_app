@@ -3,7 +3,7 @@ import { FETCH_CURRENT_WEATHER, FETCH_FORECASTED_WEATHER } from "./types";
 export const fetchCurrentWeather = (lat, lon) => dispatch => {
   console.log("fetching current weather data");
   fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&mode=JSON&APPID=${
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&mode=JSON&APPID=${
       process.env.REACT_APP_OPENWEATHERMAPS_API
     }`
   )
@@ -19,7 +19,7 @@ export const fetchCurrentWeather = (lat, lon) => dispatch => {
 export const fetchForecastedWeather = (lat, lon) => dispatch => {
   console.log("fetching forecasted weather data");
   fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&mode=JSON&APPID=${
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&mode=JSON&APPID=${
       process.env.REACT_APP_OPENWEATHERMAPS_API
     }`
   )
