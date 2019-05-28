@@ -1,7 +1,10 @@
-import { FETCH_CURRENT_WEATHER, FETCH_FORECASTED_WEATHER } from "./types";
+import {
+  FETCH_CURRENT_WEATHER,
+  FETCH_FORECASTED_WEATHER,
+  UPDATE_DATA
+} from "./types";
 
 export const fetchCurrentWeather = (lat, lon) => dispatch => {
-  console.log("fetching current weather data");
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&mode=JSON&APPID=${
       process.env.REACT_APP_OPENWEATHERMAPS_API
@@ -17,7 +20,6 @@ export const fetchCurrentWeather = (lat, lon) => dispatch => {
 };
 
 export const fetchForecastedWeather = (lat, lon) => dispatch => {
-  console.log("fetching forecasted weather data");
   fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&mode=JSON&APPID=${
       process.env.REACT_APP_OPENWEATHERMAPS_API
@@ -30,4 +32,12 @@ export const fetchForecastedWeather = (lat, lon) => dispatch => {
         payload: data
       })
     );
+};
+
+//Updates the lon and lat for the place selected.
+export const updateData = data => dispatch => {
+  dispatch({
+    type: UPDATE_DATA,
+    payload: data
+  });
 };

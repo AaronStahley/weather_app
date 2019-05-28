@@ -5,16 +5,65 @@ import { fetchForecastedWeather } from "../actions/weatherActions";
 
 class ForecastedWeather extends Component {
   componentWillMount() {
-    this.props.fetchForecastedWeather(33.4483, -112.074);
+    // this.props.fetchForecastedWeather(33.4483, -112.074);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.locationData !== this.props.locationData) {
+      this.props.fetchForecastedWeather(
+        nextProps.locationData.lat,
+        nextProps.locationData.lon
+      );
+    }
+  }
+
+  formatDate = string => {
+    var date = new Date(string);
+    switch (date.getDay()) {
+      case 0:
+        return "Sun";
+      case 1:
+        return "Mon";
+      case 2:
+        return "Tue";
+      case 3:
+        return "Wed";
+      case 4:
+        return "Thu";
+      case 5:
+        return "Fri";
+      case 6:
+        return "Sat";
+      default:
+        return null;
+    }
+  };
+
   render() {
-    const data = this.props.forecastedWeatherData;
+    //Filters data to 5 days of the week.
+    const daysArray = this.props.forecastedWeatherData.days.filter(
+      (element, index) => {
+        return index % 8 === 0;
+      }
+    );
+
+    const daysData = daysArray.map(data => (
+      <div key={data.dt_txt}>
+        <hr />
+        <h4>Date: {this.formatDate(data.dt_txt)}</h4>
+        <p>Temp: {data.main.temp}º</p>
+        <p>Conditions: {data.weather[0].main}</p>
+        <p>Conditions Desc: {data.weather[0].description}</p>
+      </div>
+    ));
+
     return (
       <div>
-        <h1>Forecasted Weather Data</h1>
-        <hr />
-        <p>Name: {data.name}</p>
+        <h1>
+          Forecasted Weather Data For <br />
+          {this.props.forecastedWeatherData.name}
+        </h1>
+        {daysData}
       </div>
     );
   }
@@ -26,7 +75,8 @@ ForecastedWeather.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  forecastedWeatherData: state.forecastedWeather.forecastedWeather
+  forecastedWeatherData: state.forecastedWeather.forecastedWeather,
+  locationData: state.updateData.placeData
 });
 
 export default connect(

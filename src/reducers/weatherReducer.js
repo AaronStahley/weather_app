@@ -1,9 +1,15 @@
 import {
   FETCH_CURRENT_WEATHER,
-  FETCH_FORECASTED_WEATHER
+  FETCH_FORECASTED_WEATHER,
+  UPDATE_DATA
 } from "../actions/types";
 
 const initialState = {
+  placeData: {
+    name: null,
+    lat: 33.4483,
+    lon: -112.074
+  },
   currentWeather: {
     name: null,
     temp: null,
@@ -16,58 +22,13 @@ const initialState = {
   },
   forecastedWeather: {
     name: null,
-    day_01: {
-      temp: null,
-      temp_min: null,
-      temp_max: null,
-      humidity: null,
-      pressure: null,
-      windSpeed: null,
-      conditions: null
-    },
-    day_02: {
-      temp: null,
-      temp_min: null,
-      temp_max: null,
-      humidity: null,
-      pressure: null,
-      windSpeed: null,
-      conditions: null
-    },
-    day_03: {
-      temp: null,
-      temp_min: null,
-      temp_max: null,
-      humidity: null,
-      pressure: null,
-      windSpeed: null,
-      conditions: null
-    },
-    day_04: {
-      temp: null,
-      temp_min: null,
-      temp_max: null,
-      humidity: null,
-      pressure: null,
-      windSpeed: null,
-      conditions: null
-    },
-    day_05: {
-      temp: null,
-      temp_min: null,
-      temp_max: null,
-      humidity: null,
-      pressure: null,
-      windSpeed: null,
-      conditions: null
-    }
+    days: []
   }
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case FETCH_CURRENT_WEATHER:
-      console.log("FETCH_CURRENT_reducer");
       return {
         ...state,
         currentWeather: {
@@ -82,17 +43,21 @@ export default function(state = initialState, action) {
         }
       };
     case FETCH_FORECASTED_WEATHER:
-      console.log("FETCH_FORECASTED_reducer");
       //Create the forecasted weather objects probably use a loop to fill out object info.
       return {
         ...state,
         forecastedWeather: {
           name: action.payload.city.name,
-          day_01: null,
-          day_02: null,
-          day_03: null,
-          day_04: null,
-          day_05: null
+          days: action.payload.list
+        }
+      };
+    case UPDATE_DATA:
+      return {
+        ...state,
+        placeData: {
+          name: action.payload.name,
+          lat: action.payload.lat,
+          lon: action.payload.lon
         }
       };
     default:
