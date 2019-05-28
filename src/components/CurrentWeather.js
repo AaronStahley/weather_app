@@ -5,7 +5,10 @@ import { fetchCurrentWeather } from "../actions/weatherActions";
 
 class CurrentWeather extends Component {
   componentWillMount() {
-    // this.props.fetchCurrentWeather(33.4483, -112.074);
+    this.props.fetchCurrentWeather(
+      this.props.locationData.lat,
+      this.props.locationData.lon
+    );
   }
 
   componentWillReceiveProps(nextProps) {

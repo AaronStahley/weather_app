@@ -8,12 +8,36 @@ class NavBar extends Component {
   constructor(props) {
     super(props);
 
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.showPosition);
+    } else {
+      console.log("not supported by browser.");
+    }
+
     this.state = {
       name: null,
       lat: null,
       lon: null
     };
   }
+
+  showPosition = position => {
+    this.setState(
+      {
+        lon: position.coords.longitude,
+        lat: position.coords.latitude
+      },
+      () => {
+        const updatedData = {
+          name: this.state.name,
+          lat: this.state.lat,
+          lon: this.state.lon
+        };
+
+        this.props.updateData(updatedData);
+      }
+    );
+  };
 
   onSubmit = e => {
     e.preventDefault();

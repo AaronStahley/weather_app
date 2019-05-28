@@ -7,8 +7,8 @@ import {
 const initialState = {
   placeData: {
     name: null,
-    lat: 33.4483,
-    lon: -112.074
+    lat: 0,
+    lon: 0
   },
   currentWeather: {
     name: null,
